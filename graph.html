@@ -1,0 +1,105 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500;
+            height: 500;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "MATH 154", "label": "MATH 154", "shape": "dot", "title": "MATH 154"}, {"id": "MATH 100", "label": "MATH 100", "shape": "dot", "title": "MATH 100"}, {"id": "MATH 125", "label": "MATH 125", "shape": "dot", "title": "MATH 125"}, {"id": "MATH 152", "label": "MATH 152", "shape": "dot", "title": "MATH 152"}, {"id": "MATH 155", "label": "MATH 155", "shape": "dot", "title": "MATH 155"}, {"id": "MATH 158", "label": "MATH 158", "shape": "dot", "title": "MATH 158"}, {"id": "MATH 190", "label": "MATH 190", "shape": "dot", "title": "MATH 190"}, {"id": "MATH 197", "label": "MATH 197", "shape": "dot", "title": "MATH 197"}, {"id": "MATH 208W", "label": "MATH 208W", "shape": "dot", "title": "MATH 208W"}, {"id": "MATH 232", "label": "MATH 232", "shape": "dot", "title": "MATH 232"}, {"id": "MATH 240", "label": "MATH 240", "shape": "dot", "title": "MATH 240"}, {"id": "MATH 308", "label": "MATH 308", "shape": "dot", "title": "MATH 308"}, {"id": "MATH 130", "label": "MATH 130", "shape": "dot", "title": "MATH 130"}, {"id": "MATH 150", "label": "MATH 150", "shape": "dot", "title": "MATH 150"}, {"id": "MATH 151", "label": "MATH 151", "shape": "dot", "title": "MATH 151"}, {"id": "MATH 157", "label": "MATH 157", "shape": "dot", "title": "MATH 157"}, {"id": "MATH 160W", "label": "MATH 160W", "shape": "dot", "title": "MATH 160W"}, {"id": "MATH 178W", "label": "MATH 178W", "shape": "dot", "title": "MATH 178W"}, {"id": "MATH 242", "label": "MATH 242", "shape": "dot", "title": "MATH 242"}, {"id": "MATH 251", "label": "MATH 251", "shape": "dot", "title": "MATH 251"}, {"id": "MATH 301", "label": "MATH 301", "shape": "dot", "title": "MATH 301"}, {"id": "MATH 302", "label": "MATH 302", "shape": "dot", "title": "MATH 302"}, {"id": "MATH 303", "label": "MATH 303", "shape": "dot", "title": "MATH 303"}, {"id": "MATH 304", "label": "MATH 304", "shape": "dot", "title": "MATH 304"}, {"id": "MATH 310", "label": "MATH 310", "shape": "dot", "title": "MATH 310"}, {"id": "MATH 380W", "label": "MATH 380W", "shape": "dot", "title": "MATH 380W"}, {"id": "MATH 252", "label": "MATH 252", "shape": "dot", "title": "MATH 252"}, {"id": "MATH 309", "label": "MATH 309", "shape": "dot", "title": "MATH 309"}, {"id": "MATH 340", "label": "MATH 340", "shape": "dot", "title": "MATH 340"}, {"id": "MATH 342", "label": "MATH 342", "shape": "dot", "title": "MATH 342"}, {"id": "MATH 419", "label": "MATH 419", "shape": "dot", "title": "MATH 419"}, {"id": "MACM 101", "label": "MACM 101", "shape": "dot", "title": "MACM 101"}, {"id": "MATH  150", "label": "MATH  150", "shape": "dot", "title": "MATH  150"}, {"id": "MATH 320", "label": "MATH 320", "shape": "dot", "title": "MATH 320"}, {"id": "MATH 314", "label": "MATH 314", "shape": "dot", "title": "MATH 314"}, {"id": "MATH 322", "label": "MATH 322", "shape": "dot", "title": "MATH 322"}, {"id": "MATH 461", "label": "MATH 461", "shape": "dot", "title": "MATH 461"}, {"id": "MATH 462", "label": "MATH 462", "shape": "dot", "title": "MATH 462"}, {"id": "MATH 348", "label": "MATH 348", "shape": "dot", "title": "MATH 348"}, {"id": "MATH 402W", "label": "MATH 402W", "shape": "dot", "title": "MATH 402W"}, {"id": "MATH 408", "label": "MATH 408", "shape": "dot", "title": "MATH 408"}, {"id": "MATH 448", "label": "MATH 448", "shape": "dot", "title": "MATH 448"}, {"id": "MATH 418", "label": "MATH 418", "shape": "dot", "title": "MATH 418"}, {"id": "MATH 467", "label": "MATH 467", "shape": "dot", "title": "MATH 467"}, {"id": "MATH 470", "label": "MATH 470", "shape": "dot", "title": "MATH 470"}, {"id": "MATH 254", "label": "MATH 254", "shape": "dot", "title": "MATH 254"}, {"id": "MATH 424", "label": "MATH 424", "shape": "dot", "title": "MATH 424"}, {"id": "MATH 425", "label": "MATH 425", "shape": "dot", "title": "MATH 425"}, {"id": "MATH 336", "label": "MATH 336", "shape": "dot", "title": "MATH 336"}, {"id": "MATH 337", "label": "MATH 337", "shape": "dot", "title": "MATH 337"}, {"id": "MATH 436", "label": "MATH 436", "shape": "dot", "title": "MATH 436"}, {"id": "MATH 338", "label": "MATH 338", "shape": "dot", "title": "MATH 338"}, {"id": "MATH 341", "label": "MATH 341", "shape": "dot", "title": "MATH 341"}, {"id": "MATH 439", "label": "MATH 439", "shape": "dot", "title": "MATH 439"}, {"id": "MATH 440", "label": "MATH 440", "shape": "dot", "title": "MATH 440"}, {"id": "MATH 441", "label": "MATH 441", "shape": "dot", "title": "MATH 441"}, {"id": "MATH 443", "label": "MATH 443", "shape": "dot", "title": "MATH 443"}, {"id": "MATH 447", "label": "MATH 447", "shape": "dot", "title": "MATH 447"}, {"id": "MACM 201", "label": "MACM 201", "shape": "dot", "title": "MACM 201"}, {"id": "MATH 343", "label": "MATH 343", "shape": "dot", "title": "MATH 343"}, {"id": "MATH 345", "label": "MATH 345", "shape": "dot", "title": "MATH 345"}, {"id": "MATH 445", "label": "MATH 445", "shape": "dot", "title": "MATH 445"}, {"id": "STAT 270", "label": "STAT 270", "shape": "dot", "title": "STAT 270"}, {"id": "STAT 285", "label": "STAT 285", "shape": "dot", "title": "STAT 285"}, {"id": "PHYS 384", "label": "PHYS 384", "shape": "dot", "title": "PHYS 384"}, {"id": "MATH 437", "label": "MATH 437", "shape": "dot", "title": "MATH 437"}, {"id": "MATH 486", "label": "MATH 486", "shape": "dot", "title": "MATH 486"}, {"id": "MACM 316", "label": "MACM 316", "shape": "dot", "title": "MACM 316"}]);
+        edges = new vis.DataSet([{"from": "MATH 154", "to": "MATH 100"}, {"from": "MATH 154", "to": "MATH 125"}, {"from": "MATH 154", "to": "MATH 152"}, {"from": "MATH 154", "to": "MATH 155"}, {"from": "MATH 154", "to": "MATH 158"}, {"from": "MATH 154", "to": "MATH 190"}, {"from": "MATH 154", "to": "MATH 197"}, {"from": "MATH 154", "to": "MATH 208W"}, {"from": "MATH 154", "to": "MATH 232"}, {"from": "MATH 154", "to": "MATH 240"}, {"from": "MATH 154", "to": "MATH 308"}, {"from": "MATH 100", "to": "MATH 130"}, {"from": "MATH 100", "to": "MATH 150"}, {"from": "MATH 100", "to": "MATH 151"}, {"from": "MATH 100", "to": "MATH 157"}, {"from": "MATH 100", "to": "MATH 160W"}, {"from": "MATH 100", "to": "MATH 178W"}, {"from": "MATH 150", "to": "MATH 125"}, {"from": "MATH 150", "to": "MATH 152"}, {"from": "MATH 150", "to": "MATH 155"}, {"from": "MATH 150", "to": "MATH 158"}, {"from": "MATH 150", "to": "MATH 190"}, {"from": "MATH 150", "to": "MATH 197"}, {"from": "MATH 150", "to": "MATH 208W"}, {"from": "MATH 150", "to": "MATH 240"}, {"from": "MATH 150", "to": "MATH 308"}, {"from": "MATH 157", "to": "MATH 152"}, {"from": "MATH 157", "to": "MATH 155"}, {"from": "MATH 157", "to": "MATH 158"}, {"from": "MATH 157", "to": "MATH 190"}, {"from": "MATH 157", "to": "MATH 197"}, {"from": "MATH 157", "to": "MATH 208W"}, {"from": "MATH 157", "to": "MATH 232"}, {"from": "MATH 157", "to": "MATH 240"}, {"from": "MATH 157", "to": "MATH 308"}, {"from": "MATH 151", "to": "MATH 125"}, {"from": "MATH 151", "to": "MATH 152"}, {"from": "MATH 151", "to": "MATH 155"}, {"from": "MATH 151", "to": "MATH 158"}, {"from": "MATH 151", "to": "MATH 190"}, {"from": "MATH 151", "to": "MATH 197"}, {"from": "MATH 151", "to": "MATH 208W"}, {"from": "MATH 151", "to": "MATH 232"}, {"from": "MATH 151", "to": "MATH 240"}, {"from": "MATH 151", "to": "MATH 308"}, {"from": "MATH 152", "to": "MATH 242"}, {"from": "MATH 152", "to": "MATH 251"}, {"from": "MATH 152", "to": "MATH 301"}, {"from": "MATH 152", "to": "MATH 302"}, {"from": "MATH 152", "to": "MATH 303"}, {"from": "MATH 152", "to": "MATH 304"}, {"from": "MATH 152", "to": "MATH 310"}, {"from": "MATH 152", "to": "MATH 380W"}, {"from": "MATH 155", "to": "MATH 242"}, {"from": "MATH 155", "to": "MATH 251"}, {"from": "MATH 155", "to": "MATH 301"}, {"from": "MATH 155", "to": "MATH 302"}, {"from": "MATH 155", "to": "MATH 303"}, {"from": "MATH 155", "to": "MATH 304"}, {"from": "MATH 155", "to": "MATH 310"}, {"from": "MATH 155", "to": "MATH 380W"}, {"from": "MATH 158", "to": "MATH 242"}, {"from": "MATH 158", "to": "MATH 251"}, {"from": "MATH 158", "to": "MATH 301"}, {"from": "MATH 158", "to": "MATH 302"}, {"from": "MATH 158", "to": "MATH 303"}, {"from": "MATH 158", "to": "MATH 304"}, {"from": "MATH 158", "to": "MATH 380W"}, {"from": "MATH 232", "to": "MATH 251"}, {"from": "MATH 232", "to": "MATH 252"}, {"from": "MATH 232", "to": "MATH 301"}, {"from": "MATH 232", "to": "MATH 302"}, {"from": "MATH 232", "to": "MATH 303"}, {"from": "MATH 232", "to": "MATH 304"}, {"from": "MATH 232", "to": "MATH 308"}, {"from": "MATH 232", "to": "MATH 309"}, {"from": "MATH 232", "to": "MATH 310"}, {"from": "MATH 232", "to": "MATH 340"}, {"from": "MATH 232", "to": "MATH 342"}, {"from": "MATH 232", "to": "MATH 419"}, {"from": "MACM 101", "to": "MATH 232"}, {"from": "MACM 101", "to": "MATH 240"}, {"from": "MATH  150", "to": "MATH 232"}, {"from": "MATH 240", "to": "MATH 251"}, {"from": "MATH 240", "to": "MATH 252"}, {"from": "MATH 240", "to": "MATH 301"}, {"from": "MATH 240", "to": "MATH 302"}, {"from": "MATH 240", "to": "MATH 303"}, {"from": "MATH 240", "to": "MATH 304"}, {"from": "MATH 240", "to": "MATH 308"}, {"from": "MATH 240", "to": "MATH 309"}, {"from": "MATH 240", "to": "MATH 310"}, {"from": "MATH 240", "to": "MATH 340"}, {"from": "MATH 240", "to": "MATH 342"}, {"from": "MATH 240", "to": "MATH 419"}, {"from": "MATH 242", "to": "MATH 320"}, {"from": "MATH 251", "to": "MATH 251"}, {"from": "MATH 251", "to": "MATH 252"}, {"from": "MATH 251", "to": "MATH 309"}, {"from": "MATH 251", "to": "MATH 314"}, {"from": "MATH 251", "to": "MATH 320"}, {"from": "MATH 251", "to": "MATH 322"}, {"from": "MATH 251", "to": "MATH 461"}, {"from": "MATH 251", "to": "MATH 462"}, {"from": "MATH 252", "to": "MATH 314"}, {"from": "MATH 308", "to": "MATH 348"}, {"from": "MATH 308", "to": "MATH 402W"}, {"from": "MATH 308", "to": "MATH 408"}, {"from": "MATH 308", "to": "MATH 448"}, {"from": "MATH 310", "to": "MATH 314"}, {"from": "MATH 310", "to": "MATH 418"}, {"from": "MATH 310", "to": "MATH 461"}, {"from": "MATH 310", "to": "MATH 462"}, {"from": "MATH 310", "to": "MATH 467"}, {"from": "MATH 310", "to": "MATH 470"}, {"from": "MATH 254", "to": "MATH 314"}, {"from": "MATH 254", "to": "MATH 418"}, {"from": "MATH 254", "to": "MATH 424"}, {"from": "MATH 254", "to": "MATH 470"}, {"from": "MATH 314", "to": "MATH 418"}, {"from": "MATH 314", "to": "MATH 419"}, {"from": "MATH 314", "to": "MATH 461"}, {"from": "MATH 314", "to": "MATH 462"}, {"from": "MATH 314", "to": "MATH 470"}, {"from": "MATH 320", "to": "MATH 418"}, {"from": "MATH 320", "to": "MATH 419"}, {"from": "MATH 320", "to": "MATH 424"}, {"from": "MATH 320", "to": "MATH 425"}, {"from": "MATH 320", "to": "MATH 470"}, {"from": "MATH 322", "to": "MATH 418"}, {"from": "MATH 322", "to": "MATH 419"}, {"from": "MATH 322", "to": "MATH 424"}, {"from": "MATH 322", "to": "MATH 470"}, {"from": "MATH 336", "to": "MATH 337"}, {"from": "MATH 337", "to": "MATH 436"}, {"from": "MATH 340", "to": "MATH 338"}, {"from": "MATH 340", "to": "MATH 341"}, {"from": "MATH 340", "to": "MATH 439"}, {"from": "MATH 340", "to": "MATH 440"}, {"from": "MATH 340", "to": "MATH 441"}, {"from": "MATH 340", "to": "MATH 443"}, {"from": "MATH 340", "to": "MATH 447"}, {"from": "MATH 338", "to": "MATH 439"}, {"from": "MATH 342", "to": "MATH 341"}, {"from": "MACM 201", "to": "MATH 343"}, {"from": "MACM 201", "to": "MATH 345"}, {"from": "MACM 201", "to": "MATH 443"}, {"from": "MATH 345", "to": "MATH 445"}, {"from": "MATH 345", "to": "MATH 448"}, {"from": "STAT 270", "to": "MATH 348"}, {"from": "STAT 270", "to": "MATH 380W"}, {"from": "STAT 285", "to": "MATH 402W"}, {"from": "MATH 418", "to": "MATH 461"}, {"from": "MATH 418", "to": "MATH 462"}, {"from": "PHYS 384", "to": "MATH 418"}, {"from": "PHYS 384", "to": "MATH 419"}, {"from": "PHYS 384", "to": "MATH 461"}, {"from": "PHYS 384", "to": "MATH 462"}, {"from": "PHYS 384", "to": "MATH 470"}, {"from": "MATH 436", "to": "MATH 437"}, {"from": "MATH 437", "to": "MATH 486"}, {"from": "MATH 439", "to": "MATH 441"}, {"from": "MACM 316", "to": "MATH 461"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
